@@ -1,0 +1,2762 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f8f9fc" />
+  <meta name="description"
+    content="Nirnay Seal — Senior QA Engineer and SDET. Playwright, Python, AWS, and AI-assisted testing. Building reliable automation for web, API, mobile, and cloud." />
+  <title>Nirnay Seal — Quality by Design</title>
+
+  <!-- Set the theme before rendering to prevent a light-mode flash. -->
+  <script>
+    (() => {
+      let savedTheme = null;
+
+      try {
+        savedTheme = localStorage.getItem("portfolio-theme");
+      } catch { }
+
+      const theme =
+        savedTheme === "light" || savedTheme === "dark"
+          ? savedTheme
+          : window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+
+      document.documentElement.dataset.theme = theme;
+
+      document.querySelector('meta[name="theme-color"]')
+        ?.setAttribute("content", theme === "dark" ? "#0d1422" : "#f8f9fc");
+    })();
+  </script>
+
+  <style>
+    :root {
+      color-scheme: light;
+
+      --bg: #f8f9fc;
+      --paper: #fff;
+      --ink: #172339;
+      --muted: #637087;
+      --blue: #315bea;
+      --blue-light: #eef2ff;
+      --teal: #087e75;
+      --line: #e1e6ef;
+      --radius: 22px;
+      --max: 1160px;
+      --shadow: 0 18px 55px rgba(33, 51, 95, .06);
+
+      --header-bg: rgba(248, 249, 252, .92);
+      --header-line: rgba(225, 230, 239, .85);
+      --surface-soft: #f6f8fc;
+      --accent-surface: #eef2ff;
+      --accent-border: #dce4ff;
+      --accent-ring: #d8e1ff;
+      --accent-text: #526386;
+      --workflow-bg: rgba(255, 255, 255, .6);
+      --workflow-border: #d6dff6;
+      --email-line: #becdf8;
+      --primary-fill: #315bea;
+      --primary-hover: #234bd1;
+      --selection-bg: #dce5ff;
+      --selection-ink: #172339;
+      --brand-bg: #172339;
+      --hero-glow: #dce6ff;
+      --hero-glow-opacity: .6;
+      --art-bg: #f0f4ff;
+
+      --claude-ink: #ae5c3e;
+      --claude-bg: #faf0e9;
+      --cursor-ink: #28334a;
+      --cursor-bg: #edf0f6;
+      --chatgpt-ink: #087d66;
+      --chatgpt-bg: #e8f6ef;
+      --copilot-ink: #6e48c2;
+      --copilot-bg: #f0ebfb;
+
+      /* Tech-boy avatar */
+      --avatar-bg: #e7eeff;
+      --avatar-ring: #bfd0ff;
+      --avatar-hoodie: #315bea;
+      --avatar-hoodie-shadow: #2346ba;
+      --avatar-laptop: #203454;
+      --avatar-laptop-edge: #839ed0;
+      --avatar-code: #a4e8d3;
+
+      --coat-top: #242424;
+      --coat-bottom: #080808;
+      --coat-lapel-left: #303030;
+      --coat-lapel-right: #151515;
+      --coat-stitch: #5f5f5f;
+      --shirt: #f2f2f2;
+      --shirt-edge: #bdbdbd;
+      --coat-button: #050505;
+    }
+
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+
+      --bg: #0d1422;
+      --paper: #151f30;
+      --ink: #e8eef9;
+      --muted: #a4b2c9;
+      --blue: #91abff;
+      --blue-light: #202e50;
+      --teal: #75d9c2;
+      --line: #2c3a50;
+      --shadow: 0 18px 55px rgba(0, 0, 0, .24);
+
+      --header-bg: rgba(13, 20, 34, .94);
+      --header-line: rgba(44, 58, 80, .85);
+      --surface-soft: #1b293e;
+      --accent-surface: #17233b;
+      --accent-border: #304467;
+      --accent-ring: #2b3d60;
+      --accent-text: #b3c3e2;
+      --workflow-bg: rgba(21, 31, 48, .8);
+      --workflow-border: #3a4c6c;
+      --email-line: #516ca5;
+      --selection-bg: #34508a;
+      --selection-ink: #fff;
+      --brand-bg: #273957;
+      --hero-glow: #315bea;
+      --hero-glow-opacity: .15;
+      --art-bg: #1b293e;
+
+      --claude-ink: #efb49b;
+      --claude-bg: #3a2b2a;
+      --cursor-ink: #d6e1f5;
+      --cursor-bg: #29364b;
+      --chatgpt-ink: #89dfc4;
+      --chatgpt-bg: #193a34;
+      --copilot-ink: #c8afff;
+      --copilot-bg: #34294d;
+
+      --avatar-bg: #202f4e;
+      --avatar-ring: #516caa;
+      --avatar-hoodie: #7897ff;
+      --avatar-hoodie-shadow: #4b6bd0;
+      --avatar-laptop: #101d34;
+      --avatar-laptop-edge: #6d8ac3;
+      --avatar-code: #93efd2;
+
+      /* Avatar outfit - dark mode */
+      --coat-top: #ffffff;
+      --coat-bottom: #d9d9d9;
+      --coat-lapel-left: #f4f4f4;
+      --coat-lapel-right: #cfcfcf;
+      --coat-stitch: #9b9b9b;
+      --shirt: #ffffff;
+      --shirt-edge: #bdbdbd;
+      --coat-button: #303030;
+
+
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 110px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+        BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection {
+      background: var(--selection-bg);
+      color: var(--selection-ink);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    summary {
+      font: inherit;
+    }
+
+    button,
+    a,
+    summary {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    summary:focus-visible {
+      outline: 3px solid var(--blue);
+      outline-offset: 5px;
+    }
+
+    svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 48px));
+      margin-inline: auto;
+    }
+
+    .mono {
+      font-family: "SFMono-Regular", Consolas, monospace;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .skip {
+      position: fixed;
+      top: -90px;
+      left: 15px;
+      background: var(--brand-bg);
+      color: white;
+      padding: 12px 20px;
+      z-index: 100;
+    }
+
+    .skip:focus {
+      top: 12px;
+    }
+
+    /* Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: var(--header-bg);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--header-line);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      min-height: 86px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .brand-copy {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.3;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 750;
+      letter-spacing: -.4px;
+    }
+
+    .brand-role {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 9px;
+      letter-spacing: 1px;
+    }
+
+    /* Original tech-boy avatar logo */
+    .avatar-logo {
+      display: inline-flex;
+      width: 60px;
+      height: 60px;
+      flex-shrink: 0;
+      filter: drop-shadow(0 4px 7px rgba(33, 51, 95, .10));
+      transition: transform .25s ease;
+    }
+
+    .avatar-logo svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .brand:hover .avatar-logo {
+      transform: translateY(-2px) rotate(-4deg);
+    }
+
+    .avatar-background {
+      fill: var(--avatar-bg);
+    }
+
+    .avatar-outline {
+      stroke: var(--avatar-ring);
+    }
+
+    .avatar-hoodie {
+      fill: var(--avatar-hoodie);
+    }
+
+    .avatar-hoodie-shadow {
+      fill: var(--avatar-hoodie-shadow);
+    }
+
+    .avatar-laptop {
+      fill: var(--avatar-laptop);
+      stroke: var(--avatar-laptop-edge);
+    }
+
+    .avatar-code {
+      stroke: var(--avatar-code);
+    }
+
+    .avatar-badge {
+      fill: #087e75;
+      stroke: var(--bg);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+    }
+
+    .nav-links a {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover {
+      color: var(--blue);
+    }
+
+    .nav-links .nav-cta {
+      color: var(--ink);
+      border: 1px solid var(--line);
+      background: var(--paper);
+      padding: 9px 15px;
+      border-radius: 8px;
+    }
+
+    .menu-toggle {
+      display: none;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 8px 12px;
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 12px;
+    }
+
+    /* Light / dark mode */
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      flex-shrink: 0;
+      min-width: 88px;
+      min-height: 40px;
+      margin-left: auto;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 600;
+      transition: background .2s, border-color .2s, color .2s;
+    }
+
+    .theme-toggle:hover {
+      background: var(--blue-light);
+      border-color: var(--blue);
+    }
+
+    .theme-toggle svg {
+      width: 17px;
+      height: 17px;
+      flex-shrink: 0;
+    }
+
+    .theme-toggle .sun-icon {
+      display: none;
+    }
+
+    :root[data-theme="dark"] .theme-toggle .sun-icon {
+      display: block;
+    }
+
+    :root[data-theme="dark"] .theme-toggle .moon-icon {
+      display: none;
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: center;
+      gap: 38px;
+      padding-block: 90px 70px;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--blue);
+      font-size: 10px;
+      font-weight: 650;
+      text-transform: uppercase;
+      letter-spacing: 1.8px;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 0 4px rgba(49, 91, 234, .08);
+      flex-shrink: 0;
+    }
+
+    h1 {
+      margin-block: 23px;
+      font-size: clamp(52px, 5.8vw, 77px);
+      font-weight: 650;
+      letter-spacing: -4.6px;
+      line-height: 1.06;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--blue);
+    }
+
+    .hero-copy {
+      max-width: 460px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.9;
+    }
+
+    .hero-copy strong {
+      color: var(--ink);
+      font-weight: 550;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 22px;
+      padding: 13px 20px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 650;
+      transition: transform .2s, box-shadow .2s, background .2s;
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    .button.primary {
+      color: white;
+      background: var(--primary-fill);
+      border-color: var(--primary-fill);
+    }
+
+    .button.primary:hover {
+      background: var(--primary-hover);
+      border-color: var(--primary-hover);
+    }
+
+    .hero-meta {
+      margin-top: 27px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 15px;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .hero-art {
+      position: relative;
+      min-width: 0;
+      isolation: isolate;
+    }
+
+    .hero-art::before {
+      content: "";
+      position: absolute;
+      inset: 8%;
+      background: var(--hero-glow);
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: var(--hero-glow-opacity);
+      z-index: -1;
+    }
+
+    .art-caption {
+      text-align: center;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 1px;
+    }
+
+    .float-a {
+      animation: float 5s ease-in-out 3;
+    }
+
+    .float-b {
+      animation: float 6s ease-in-out 2;
+      animation-delay: -.8s;
+    }
+
+    .flow-line {
+      stroke-dasharray: 6 8;
+      animation: flow 2s linear 6;
+    }
+
+    .scan-line {
+      animation: scan 4s ease-in-out 3;
+    }
+
+    @keyframes float {
+      50% {
+        transform: translateY(-9px);
+      }
+    }
+
+    @keyframes flow {
+      to {
+        stroke-dashoffset: -28;
+      }
+    }
+
+    @keyframes scan {
+      50% {
+        transform: translateY(52px);
+        opacity: .35;
+      }
+    }
+
+    /* Metrics */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      padding: 28px 10px;
+      box-shadow: var(--shadow);
+    }
+
+    .stat {
+      padding: 4px 18px;
+      border-right: 1px solid var(--line);
+    }
+
+    .stat:last-child {
+      border-right: 0;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -1.5px;
+      line-height: 1.2;
+    }
+
+    .stat strong span:last-child {
+      color: var(--blue);
+    }
+
+    .stat p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    /* Shared sections */
+    .section {
+      padding-top: 100px;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 28px;
+      margin-bottom: 32px;
+    }
+
+    .section-label {
+      font-size: 10px;
+      color: var(--blue);
+      letter-spacing: 1.8px;
+    }
+
+    h2 {
+      font-size: clamp(30px, 3.5vw, 43px);
+      font-weight: 600;
+      letter-spacing: -1.8px;
+      line-height: 1.2;
+      margin: 12px 0 0;
+    }
+
+    .section-note {
+      color: var(--muted);
+      max-width: 315px;
+      font-size: 12px;
+      margin: 0;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 4px 9px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      color: var(--muted);
+      font-size: 10px;
+      background: var(--paper);
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    /* Projects */
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .work-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform .3s, box-shadow .3s;
+    }
+
+    .work-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow);
+    }
+
+    .work-art {
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+      background: var(--art-bg);
+    }
+
+    .work-art svg {
+      width: 100%;
+      height: auto;
+      transition: transform .5s;
+    }
+
+    .work-card:hover .work-art svg {
+      transform: scale(1.035);
+    }
+
+    .work-content {
+      padding: 26px;
+    }
+
+    .work-type {
+      font-size: 9px;
+      color: var(--blue);
+      letter-spacing: 1.2px;
+    }
+
+    .work-content h3 {
+      font-size: 21px;
+      letter-spacing: -.6px;
+      font-weight: 600;
+      margin: 12px 0;
+    }
+
+    .work-content>p {
+      font-size: 12px;
+      color: var(--muted);
+      min-height: 60px;
+    }
+
+    .result {
+      margin-block: 22px;
+      padding: 15px;
+      background: var(--surface-soft);
+      border-radius: 10px;
+    }
+
+    .result strong {
+      display: block;
+      color: var(--blue);
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -.7px;
+    }
+
+    .result span {
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    details {
+      border-top: 1px solid var(--line);
+      padding-top: 16px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 550;
+    }
+
+    details ul {
+      padding-left: 17px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    details li {
+      margin-top: 10px;
+    }
+
+    details[open] summary {
+      color: var(--blue);
+    }
+
+    /* AI workflow */
+    .ai-section {
+      margin-top: 100px;
+      padding: 42px;
+      background: var(--accent-surface);
+      border: 1px solid var(--accent-border);
+      border-radius: 26px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ai-section::before {
+      content: "";
+      position: absolute;
+      top: -170px;
+      right: -80px;
+      width: 380px;
+      height: 380px;
+      border: 1px solid var(--accent-ring);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .ai-section .section-heading {
+      position: relative;
+    }
+
+    .ai-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .ai-card {
+      position: relative;
+      padding: 22px;
+      background: var(--paper);
+      border: 1px solid var(--accent-border);
+      border-radius: 15px;
+      transition: transform .25s;
+    }
+
+    .ai-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .tool-icon {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      margin-bottom: 22px;
+    }
+
+    .tool-icon svg {
+      width: 23px;
+      height: 23px;
+    }
+
+    .claude {
+      color: var(--claude-ink);
+      background: var(--claude-bg);
+    }
+
+    .cursor-tool {
+      color: var(--cursor-ink);
+      background: var(--cursor-bg);
+    }
+
+    .chatgpt {
+      color: var(--chatgpt-ink);
+      background: var(--chatgpt-bg);
+    }
+
+    .copilot {
+      color: var(--copilot-ink);
+      background: var(--copilot-bg);
+    }
+
+    .ai-card h3 {
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .tool-subtitle {
+      font-size: 9px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .ai-card ul {
+      padding-left: 14px;
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    .ai-card li {
+      margin-bottom: 10px;
+    }
+
+    .ai-footnote {
+      margin: 23px 0 0;
+      color: var(--accent-text);
+      font-size: 11px;
+    }
+
+    .workflow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 11px;
+      margin-top: 26px;
+      font-size: 10px;
+      color: var(--accent-text);
+    }
+
+    .workflow span:nth-child(odd) {
+      padding: 7px 12px;
+      border-radius: 7px;
+      border: 1px solid var(--workflow-border);
+      background: var(--workflow-bg);
+    }
+
+    /* Stack */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .stack-card {
+      padding: 23px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: var(--paper);
+    }
+
+    .stack-card>span {
+      font-size: 10px;
+      color: var(--blue);
+    }
+
+    .stack-card h3 {
+      margin: 17px 0 12px;
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .stack-card p {
+      margin: 0;
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 2;
+    }
+
+    /* About and experience */
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+      gap: 70px;
+    }
+
+    .about-copy {
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .about-copy strong {
+      color: var(--ink);
+      font-weight: 550;
+    }
+
+    .experience-box {
+      padding: 30px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .experience-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .company-icon {
+      width: 43px;
+      height: 43px;
+      display: grid;
+      place-items: center;
+      background: var(--blue-light);
+      color: var(--blue);
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 750;
+      flex-shrink: 0;
+    }
+
+    .experience-box h3 {
+      font-size: 19px;
+      margin: 0;
+      letter-spacing: -.5px;
+    }
+
+    .experience-box .role {
+      color: var(--blue);
+      font-size: 12px;
+      margin: 16px 0 6px;
+    }
+
+    .experience-date {
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .timeline {
+      margin-top: 25px;
+      border-left: 1px solid var(--line);
+      padding-left: 20px;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: 20px;
+    }
+
+    .timeline-item:last-child {
+      padding-bottom: 0;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -24px;
+      top: 8px;
+      width: 7px;
+      height: 7px;
+      background: var(--blue);
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px var(--paper);
+    }
+
+    .timeline-item strong {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .timeline-item p {
+      color: var(--muted);
+      font-size: 11px;
+      margin: 5px 0 0;
+    }
+
+    .credentials {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: 50px;
+      margin-top: 38px;
+      padding-top: 30px;
+      border-top: 1px solid var(--line);
+    }
+
+    .credentials h3 {
+      font-size: 10px;
+      letter-spacing: 1.3px;
+      color: var(--muted);
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    .cert-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 20px;
+    }
+
+    .cert {
+      font-size: 11px;
+    }
+
+    .cert::before {
+      content: "↗";
+      color: var(--blue);
+      margin-right: 8px;
+    }
+
+    .education strong {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .education p {
+      font-size: 11px;
+      color: var(--muted);
+      margin: 7px 0 0;
+    }
+
+    /* Side projects */
+    .side-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 20px;
+    }
+
+    .side-card {
+      padding: 28px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 17px;
+    }
+
+    .side-icon {
+      color: var(--blue);
+      font-size: 21px;
+      margin-bottom: 18px;
+    }
+
+    .side-card h3 {
+      font-size: 17px;
+      margin-bottom: 12px;
+      letter-spacing: -.4px;
+    }
+
+    .side-card p {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .approach {
+      margin-top: 24px;
+      padding: 24px 28px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: var(--paper);
+    }
+
+    .approach summary {
+      font-size: 14px;
+    }
+
+    .approach-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .approach-grid h4 {
+      color: var(--blue);
+      font-size: 12px;
+      margin: 0 0 8px;
+    }
+
+    .approach-grid p {
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 0;
+    }
+
+    /* Contact */
+    .contact {
+      margin-top: 100px;
+      padding: 60px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      align-items: center;
+      gap: 40px;
+      background: var(--accent-surface);
+      border: 1px solid var(--accent-border);
+      border-radius: 25px;
+    }
+
+    .contact h2 {
+      font-size: clamp(33px, 4vw, 48px);
+    }
+
+    .contact p {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 20px 0 0;
+    }
+
+    .contact-right {
+      text-align: right;
+      min-width: 0;
+    }
+
+    .email {
+      display: inline-block;
+      color: var(--blue);
+      font-size: clamp(14px, 2vw, 19px);
+      border-bottom: 1px solid var(--email-line);
+      padding-bottom: 7px;
+      overflow-wrap: anywhere;
+    }
+
+    .socials {
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 22px;
+      font-size: 11px;
+    }
+
+    .socials a:hover {
+      color: var(--blue);
+    }
+
+    .copy-button {
+      border: 0;
+      padding: 0;
+      background: none;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .copy-button:hover {
+      color: var(--blue);
+    }
+
+    .copy-status {
+      min-height: 20px;
+      margin-top: 9px;
+      color: var(--teal);
+      font-size: 10px;
+    }
+
+    footer {
+      padding-block: 30px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    footer a:hover {
+      color: var(--blue);
+    }
+
+    /* Progressive enhancement */
+    .reveal {
+      transition: opacity .65s ease, transform .65s ease;
+    }
+
+    .reveal.pending {
+      opacity: 0;
+      transform: translateY(22px);
+    }
+
+    @media (max-width: 1050px) {
+      .hero {
+        gap: 10px;
+      }
+
+      h1 {
+        font-size: 62px;
+        letter-spacing: -3.8px;
+      }
+
+      .stats {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        padding: 8px 15px;
+      }
+
+      .stat {
+        margin-block: 16px;
+      }
+
+      .stat:nth-child(3) {
+        border-right: 0;
+      }
+
+      .ai-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .stack-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .work-content {
+        padding: 20px;
+      }
+
+      .about-grid {
+        gap: 35px;
+      }
+
+      .contact {
+        padding: 42px;
+      }
+
+      .nav {
+        gap: 18px;
+      }
+
+      .nav-links {
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 780px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+        padding-top: 55px;
+        gap: 25px;
+      }
+
+      h1 {
+        font-size: clamp(53px, 10vw, 74px);
+      }
+
+      .hero-copy {
+        max-width: 560px;
+      }
+
+      .hero-art {
+        width: min(560px, 100%);
+        margin: auto;
+      }
+
+      .work-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .work-art svg {
+        max-height: 250px;
+      }
+
+      .work-content>p {
+        min-height: auto;
+      }
+
+      .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .section-note {
+        max-width: 520px;
+      }
+
+      .about-grid,
+      .credentials,
+      .contact {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .contact-right {
+        text-align: left;
+      }
+
+      .socials {
+        justify-content: flex-start;
+      }
+
+      .approach-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .nav {
+        gap: 12px;
+      }
+
+      .nav-links {
+        gap: 16px;
+      }
+
+      .brand-copy {
+        display: none;
+      }
+
+      .avatar-logo {
+        width: 54px;
+        height: 54px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .container {
+        width: calc(100% - 32px);
+      }
+
+      .nav {
+        min-height: 76px;
+        flex-wrap: wrap;
+        gap: 9px;
+        padding-block: 10px;
+      }
+
+      .brand {
+        gap: 8px;
+      }
+
+      .brand-copy {
+        display: flex;
+      }
+
+      .brand-name {
+        font-size: 13px;
+      }
+
+      .brand-role {
+        font-size: 8px;
+        letter-spacing: .5px;
+      }
+
+      .avatar-logo {
+        width: 48px;
+        height: 48px;
+      }
+
+      .theme-toggle {
+        min-width: 74px;
+        padding: 7px 9px;
+        font-size: 11px;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: space-between;
+        gap: 10px;
+        padding-block: 5px;
+      }
+
+      .nav-links a {
+        font-size: 11px;
+      }
+
+      .nav-links .nav-cta {
+        padding: 6px 10px;
+      }
+
+      .js .menu-toggle {
+        display: block;
+      }
+
+      .js .nav-links {
+        display: none;
+      }
+
+      .js .nav-links.open {
+        display: flex;
+      }
+
+      h1 {
+        letter-spacing: -3px;
+      }
+
+      .eyebrow {
+        font-size: 9px;
+        letter-spacing: 1px;
+      }
+
+      .hero {
+        padding-bottom: 35px;
+      }
+
+      .hero-meta {
+        font-size: 9px;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .stat {
+        padding: 4px 14px;
+      }
+
+      .stat:nth-child(3) {
+        border-right: 1px solid var(--line);
+      }
+
+      .stat:nth-child(even) {
+        border-right: 0;
+      }
+
+      .stat strong {
+        font-size: 30px;
+      }
+
+      .section {
+        padding-top: 70px;
+      }
+
+      .ai-section {
+        padding: 25px 19px;
+        margin-top: 70px;
+      }
+
+      .ai-grid,
+      .side-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .ai-card {
+        padding: 22px;
+      }
+
+      .ai-card ul {
+        font-size: 12px;
+      }
+
+      .tool-icon {
+        margin-bottom: 14px;
+      }
+
+      .stack-card {
+        padding: 18px;
+      }
+
+      .stack-card p {
+        font-size: 10px;
+      }
+
+      .cert-list {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .contact {
+        margin-top: 70px;
+        padding: 32px 24px;
+        gap: 25px;
+      }
+
+      footer {
+        flex-wrap: wrap;
+        font-size: 9px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .brand-role {
+        display: none;
+      }
+
+      .brand-name {
+        font-size: 12px;
+      }
+
+      .avatar-logo {
+        width: 42px;
+        height: 42px;
+      }
+
+      .brand {
+        gap: 6px;
+      }
+
+      .nav {
+        gap: 7px;
+      }
+
+      .theme-toggle {
+        min-width: 36px;
+        padding: 8px;
+      }
+
+      .theme-toggle-label {
+        display: none;
+      }
+
+      .menu-toggle {
+        padding-inline: 9px;
+      }
+
+      h1 {
+        font-size: 46px;
+        letter-spacing: -2.8px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+
+      .reveal.pending {
+        opacity: 1;
+        transform: none;
+      }
+
+      .brand:hover .avatar-logo,
+      .work-card:hover,
+      .ai-card:hover,
+      .button:hover,
+      .work-card:hover .work-art svg {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body id="top">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header>
+    <nav class="container nav" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="Nirnay Seal home">
+        <!-- Updated tech-boy avatar -->
+        <!-- Handsome tech-boy avatar -->
+        <!-- Redesigned tech-boy avatar -->
+        <span class="avatar-logo" aria-hidden="true">
+          <svg viewBox="0 0 100 100" fill="none">
+            <defs>
+              <linearGradient id="ns-avatar-skin" x1="34" y1="27" x2="66" y2="68" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#F5C7A5" />
+                <stop offset="1" stop-color="#D99A75" />
+              </linearGradient>
+
+              <linearGradient id="ns-avatar-hair" x1="30" y1="9" x2="68" y2="39" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#465369" />
+                <stop offset=".5" stop-color="#243044" />
+                <stop offset="1" stop-color="#121C2D" />
+              </linearGradient>
+
+              <linearGradient id="ns-avatar-jacket" x1="25" y1="68" x2="75" y2="98" gradientUnits="userSpaceOnUse">
+                <stop stop-color="var(--coat-top)" />
+                <stop offset="1" stop-color="var(--coat-bottom)" />
+              </linearGradient>
+
+              <clipPath id="ns-avatar-circle">
+                <circle cx="50" cy="50" r="46" />
+              </clipPath>
+            </defs>
+
+            <!-- Theme-aware background -->
+            <circle class="avatar-background" cx="50" cy="50" r="47" />
+            <circle class="avatar-outline" cx="50" cy="50" r="47" stroke-width="1.5" />
+
+            <g clip-path="url(#ns-avatar-circle)">
+              <!-- Background halo -->
+              <circle cx="50" cy="43" r="32" fill="var(--blue)" opacity=".09" />
+
+              <!-- Coding accents -->
+              <g stroke="var(--blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".6">
+                <path d="m18 43-5 5 5 5" />
+                <path d="m82 43 5 5-5 5" />
+                <path d="M79 23v6m-3-3h6" />
+              </g>
+              <circle cx="23" cy="25" r="2" fill="var(--blue)" opacity=".5" />
+
+              <!-- Broad shoulders / dark jacket -->
+              <path d="M11 101v-13c0-12 10-20 29-24h20
+           c19 4 29 12 29 24v13Z" fill="url(#ns-avatar-jacket)" />
+
+              <!-- Neck -->
+              <path d="M41 57h18v17c-5 7-13 7-18 0Z" fill="#DCA17D" />
+              <path d="M41 58h18v8c-5 5-13 5-18 0Z" fill="#B97757" opacity=".4" />
+
+              <!-- Shirt -->
+              <path d="m38 72 12 7 12-7 6 29H32Z" fill="var(--shirt)" />
+              <path d="M40 73c5 6 15 6 20 0" stroke="var(--shirt-edge)" stroke-width="3" />
+              <path d="m38 72 12 7-6 7-6-8Zm24 0-12 7 6 7 6-8Z" fill="var(--shirt-edge)" />
+
+              <!-- Wide tailored coat lapels -->
+              <path d="m39 64 10 35H35l-7-16 7-5-6-6Z" fill="var(--coat-lapel-left)" />
+              <path d="m61 64-10 35h14l7-16-7-5 6-6Z" fill="var(--coat-lapel-right)" />
+
+              <!-- Lapel stitching -->
+              <path d="m38 68 9 28m15-28-9 28" stroke="var(--coat-stitch)" stroke-width="1" stroke-linecap="round"
+                opacity=".65" />
+
+              <!-- Coat buttons -->
+              <circle cx="38" cy="91" r="2" fill="var(--coat-button)" />
+              <circle cx="62" cy="91" r="2" fill="var(--coat-button)" />
+
+              <!-- Breast pocket -->
+              <path d="M72 83h8" stroke="var(--coat-button)" stroke-width="1.5" stroke-linecap="round" opacity=".6" />
+
+              <!-- Ears -->
+              <ellipse cx="32" cy="44" rx="4.5" ry="7" fill="#DFA27D" />
+              <ellipse cx="68" cy="44" rx="4.5" ry="7" fill="#DFA27D" />
+              <path d="M31 42v4m38-4v4" stroke="#B97759" stroke-width="1.4" stroke-linecap="round" />
+
+              <!-- Face: wider cheekbones, tapered jaw -->
+              <path d="M32 29c0-12 8-19 18-19s18 7 18 19
+           v16c0 6-3 12-7 16l-7 6
+           c-2 2-6 2-8 0l-7-6
+           c-4-4-7-10-7-16Z" fill="url(#ns-avatar-skin)" />
+
+              <!-- Cheek and temple shading -->
+              <path d="M34 43c1 10 4 15 10 19l-5-2c-4-4-7-9-7-15v-8Z" fill="#C28663" opacity=".25" />
+              <path d="M65 43c-1 10-4 15-10 19l6-2c4-4 7-9 7-15v-8Z" fill="#B97957" opacity=".2" />
+
+              <!-- Modern swept-back quiff -->
+              <path d="M31 42c-3-5-5-13-3-20
+           -3-6 1-12 7-15
+           l-1 5c6-8 17-11 27-7
+           l-3 3c7-1 14 4 16 10
+           l-4-1c3 7 2 16-2 25
+           l-4-13c-9 2-18-1-24-7
+           -1 6-4 10-7 12Z" fill="url(#ns-avatar-hair)" />
+
+              <!-- Swept hair strands -->
+              <g fill="none" stroke-linecap="round">
+                <path d="M33 22c5-10 17-15 29-10" stroke="#718099" stroke-width="2.6" opacity=".6" />
+                <path d="M39 20c7-6 15-8 23-5" stroke="#9AA5B6" stroke-width="1.6" opacity=".35" />
+                <path d="M45 23c6 3 12 4 18 2" stroke="#64728A" stroke-width="1.8" opacity=".55" />
+              </g>
+
+              <!-- Tapered sideburns -->
+              <path d="m32 32 3-3-1 15-2-3Zm33-3 3 3v9l-2 3Z" fill="#253145" />
+
+              <!-- Strong eyebrows -->
+              <path d="M36 37c3-2 7-2 10-.5" stroke="#344052" stroke-width="2.5" stroke-linecap="round" />
+              <path d="M54 36.5c3-1.5 7-1.5 10 .5" stroke="#344052" stroke-width="2.5" stroke-linecap="round" />
+
+              <!-- Eyes: relaxed almond shape -->
+              <path d="M36 43c3-3 7-3 10 0-3 2-7 2-10 0Z" fill="#FFF5E9" />
+              <path d="M54 43c3-3 7-3 10 0-3 2-7 2-10 0Z" fill="#FFF5E9" />
+              <circle cx="41.5" cy="42.6" r="2" fill="#49382F" />
+              <circle cx="58.5" cy="42.6" r="2" fill="#49382F" />
+              <circle cx="41.5" cy="42.6" r="1" fill="#172237" />
+              <circle cx="58.5" cy="42.6" r="1" fill="#172237" />
+              <circle cx="42" cy="42" r=".55" fill="white" />
+              <circle cx="59" cy="42" r=".55" fill="white" />
+              <path d="M36 43c3-3 7-3 10 0m8 0c3-3 7-3 10 0" stroke="#654936" stroke-width="1.1"
+                stroke-linecap="round" />
+
+              <!-- Nose -->
+              <path d="m50 43-2 8c1.5 1 3 1 4.5 0" stroke="#B97D5B" stroke-width="1.4" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path d="M50 44v4" stroke="#FFE2C7" stroke-width="1.4" stroke-linecap="round" opacity=".6" />
+
+              <!-- Subtle, neatly shaped stubble -->
+              <path d="M35 51c3 4 4 7 8 9
+           l7 3 7-3c4-2 5-5 8-9
+           -1 7-4 11-10 15
+           -3 2-7 2-10 0
+           -6-4-9-8-10-15Z" fill="#514238" opacity=".2" />
+
+              <!-- Slight asymmetric smile -->
+              <path d="M44 56c4 2 8 2 12-1" stroke="#8F5342" stroke-width="1.7" stroke-linecap="round" />
+              <path d="M46 56.8c3 .7 5 .4 7-.4" stroke="#FFF0DE" stroke-width="1.2" stroke-linecap="round" />
+              <path d="M47 62h6" stroke="#A26A50" stroke-width="1.2" stroke-linecap="round" opacity=".5" />
+
+              <!-- Small code emblem on jacket -->
+              <g stroke="var(--avatar-code)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m24 82-3 3 3 3m6-6 3 3-3 3" />
+              </g>
+            </g>
+
+            <!-- QA badge -->
+            <circle class="avatar-badge" cx="84" cy="80" r="11" stroke-width="3" />
+            <path d="m79 80 3 3 6-7" stroke="white" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+
+        <span class="brand-copy">
+          <span class="brand-name">Nirnay Seal</span>
+          <span class="brand-role mono">QA ENGINEER / SDET</span>
+        </span>
+      </a>
+
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode" hidden>
+        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z" />
+        </svg>
+
+        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+          stroke-linecap="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" />
+          <path
+            d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" />
+        </svg>
+
+        <span class="theme-toggle-label" id="theme-toggle-label">Dark</span>
+      </button>
+
+      <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="nav-links" type="button">Menu
+        +</button>
+
+      <div class="nav-links" id="nav-links">
+        <a href="#work">Work</a>
+        <a href="#ai">AI workflow</a>
+        <a href="#stack">Stack</a>
+        <a href="#about">About</a>
+        <a class="nav-cta" href="#contact">Let’s talk ↗</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" class="container">
+
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <div class="eyebrow mono">
+          <span class="dot" aria-hidden="true"></span>
+          Senior QA Engineer · SDET
+        </div>
+
+        <h1 id="hero-title">
+          Less manual.<br />
+          More reliable.<br />
+          <em>Better releases.</em>
+        </h1>
+
+        <p class="hero-copy">
+          Hi, I’m <strong>Nirnay Seal</strong> — a QA Automation Engineer
+          building frameworks that catch bugs before your users do.
+          <strong>Playwright. Python. AWS.</strong> Quality at velocity.
+        </p>
+
+        <div class="actions">
+          <a class="button primary" href="#work">
+            Explore my work <span aria-hidden="true">↗</span>
+          </a>
+          <a class="button" href="https://github.com/nirnaySeal" target="_blank" rel="noopener noreferrer"
+            aria-label="GitHub profile, opens in a new tab">
+            GitHub profile <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+
+        <div class="hero-meta mono">
+          <span>◎ Kolkata, India</span>
+          <span>Web / API / Mobile / Cloud</span>
+        </div>
+      </div>
+
+      <!-- Original illustration retains its illustrated colors in both themes. -->
+      <div class="hero-art">
+        <svg viewBox="0 0 580 490" role="img" aria-labelledby="hero-art-title hero-art-desc">
+          <title id="hero-art-title">The quality engineering lab</title>
+          <desc id="hero-art-desc">
+            An illustrated automation dashboard connected to cloud services,
+            API validation, and a mobile device, with successful test checks.
+          </desc>
+
+          <defs>
+            <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+              <circle cx="1" cy="1" r="1" fill="#d5deef" />
+            </pattern>
+            <linearGradient id="hero-panel" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#fff" />
+              <stop offset="1" stop-color="#f1f5ff" />
+            </linearGradient>
+            <filter id="soft-shadow" x="-40%" y="-40%" width="180%" height="200%">
+              <feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#254a94" flood-opacity=".10" />
+            </filter>
+          </defs>
+
+          <rect x="20" y="20" width="540" height="445" rx="36" fill="url(#grid)" />
+          <circle cx="298" cy="246" r="178" fill="#eef3ff" opacity=".9" />
+          <ellipse cx="298" cy="403" rx="195" ry="26" fill="#e5ecf9" />
+
+          <g fill="none" stroke="#99aee8" stroke-width="2">
+            <path class="flow-line" d="M115 125 H175 V182" />
+            <path class="flow-line" d="M425 111 H464 V240 H434" />
+            <path class="flow-line" d="M137 345 H83 V260 H147" />
+            <path class="flow-line" d="M358 350 V405 H454 V333" />
+          </g>
+
+          <g filter="url(#soft-shadow)">
+            <rect x="128" y="153" width="326" height="222" rx="15" fill="url(#hero-panel)" stroke="#cbd8f1" />
+            <path d="M143 153 H439 Q454 153 454 168 V187 H128 V168 Q128 153 143 153" fill="#f0f4ff" />
+            <path d="M128 187 H454" stroke="#d8e2f5" />
+            <circle cx="145" cy="170" r="3" fill="#93a8dc" />
+            <circle cx="156" cy="170" r="3" fill="#b2c1e7" />
+            <circle cx="167" cy="170" r="3" fill="#d0daf0" />
+            <text x="289" y="174" text-anchor="middle" font-family="monospace" font-size="9" fill="#60749c">automation /
+              quality.spec.ts</text>
+
+            <rect x="145" y="204" width="38" height="151" rx="7" fill="#edf2fc" />
+            <rect x="155" y="216" width="18" height="18" rx="5" fill="#315bea" />
+            <path d="m160 225 3 3 6-7" fill="none" stroke="white" stroke-width="1.7" />
+            <rect x="157" y="247" width="14" height="3" rx="1.5" fill="#a8b9dc" />
+            <rect x="157" y="263" width="14" height="3" rx="1.5" fill="#a8b9dc" />
+            <rect x="157" y="279" width="14" height="3" rx="1.5" fill="#a8b9dc" />
+
+            <text x="201" y="220" font-family="system-ui" font-size="11" font-weight="650" fill="#263959">Release
+              readiness</text>
+            <rect x="201" y="232" width="230" height="46" rx="8" fill="white" stroke="#e0e7f4" />
+            <circle cx="220" cy="255" r="10" fill="#e5f6ef" />
+            <path d="m216 255 3 3 5-6" fill="none" stroke="#13856e" stroke-width="1.7" />
+            <text x="239" y="253" font-family="system-ui" font-size="10" fill="#263959">All systems validated</text>
+            <text x="239" y="267" font-family="monospace" font-size="7" fill="#788aa7">web · api · mobile · cloud</text>
+
+            <rect x="201" y="290" width="108" height="64" rx="8" fill="#edf3ff" />
+            <text x="213" y="309" font-family="monospace" font-size="7" fill="#6e7f9b">AUTOMATION COVERAGE</text>
+            <text x="213" y="339" font-family="system-ui" font-size="25" font-weight="650" fill="#315bea">85%+</text>
+            <rect x="320" y="290" width="111" height="64" rx="8" fill="#edf7f3" />
+            <text x="332" y="309" font-family="monospace" font-size="7" fill="#638b7c">QA CYCLE REDUCTION</text>
+            <text x="332" y="339" font-family="system-ui" font-size="25" font-weight="650" fill="#10836d">70%</text>
+          </g>
+
+          <g class="float-a">
+            <g filter="url(#soft-shadow)">
+              <rect x="38" y="66" width="185" height="97" rx="13" fill="#203454" />
+              <circle cx="54" cy="82" r="3" fill="#6f8aac" />
+              <circle cx="65" cy="82" r="3" fill="#6f8aac" />
+              <text x="55" y="107" font-family="monospace" font-size="9" fill="#a9c1ff">test('ship confidently',</text>
+              <text x="55" y="124" font-family="monospace" font-size="9" fill="#e1ebff"> async ({ page }) =&gt; {</text>
+              <text x="55" y="141" font-family="monospace" font-size="9" fill="#88dec4"> await expect(quality);</text>
+            </g>
+          </g>
+
+          <g class="float-b">
+            <g filter="url(#soft-shadow)">
+              <rect x="357" y="47" width="156" height="90" rx="15" fill="white" stroke="#dce4f3" />
+              <path d="M387 90c-12 0-13-17-2-20 2-16 25-19 32-4 15-3 23 21 7 24Z" fill="#eef3ff" stroke="#6b90ed"
+                stroke-width="2" />
+              <text x="438" y="81" font-family="system-ui" font-size="12" font-weight="650" fill="#2a4068">AWS</text>
+              <text x="376" y="116" font-family="monospace" font-size="8" fill="#7183a2">Lambda · SQS · S3</text>
+            </g>
+          </g>
+
+          <g class="float-a">
+            <g filter="url(#soft-shadow)">
+              <rect x="438" y="257" width="87" height="151" rx="15" fill="#fff" stroke="#b9caeb" stroke-width="2" />
+              <rect x="446" y="271" width="71" height="121" rx="8" fill="#edf2ff" />
+              <rect x="467" y="263" width="29" height="4" rx="2" fill="#b9caeb" />
+              <rect x="454" y="283" width="55" height="36" rx="5" fill="#d2dfff" />
+              <path d="m477 293 12 8-12 8Z" fill="#315bea" />
+              <rect x="454" y="330" width="42" height="4" rx="2" fill="#aabfe7" />
+              <rect x="454" y="340" width="53" height="4" rx="2" fill="#c5d3ed" />
+              <circle cx="482" cy="369" r="12" fill="#d6efe5" />
+              <path d="m476 369 4 4 8-9" fill="none" stroke="#12876b" stroke-width="2" />
+              <rect class="scan-line" x="449" y="280" width="65" height="2" rx="1" fill="#315bea" opacity=".55" />
+            </g>
+          </g>
+
+          <g class="float-b">
+            <g filter="url(#soft-shadow)">
+              <rect x="38" y="332" width="143" height="68" rx="12" fill="white" stroke="#dce4f3" />
+              <rect x="51" y="348" width="34" height="34" rx="9" fill="#eaf7f2" />
+              <text x="68" y="370" text-anchor="middle" font-family="monospace" font-size="15" fill="#12836c">{ }</text>
+              <text x="96" y="359" font-family="system-ui" font-size="10" fill="#284265">API checks</text>
+              <text x="96" y="375" font-family="monospace" font-size="9" fill="#12836c">200 OK ✓</text>
+            </g>
+          </g>
+
+          <circle cx="291" cy="86" r="5" fill="#b4c8ff" />
+          <circle cx="226" cy="425" r="4" fill="#8dd6c1" />
+          <path d="M536 185v12m-6-6h12" stroke="#9eb7f0" stroke-width="2" />
+          <path d="M67 206v12m-6-6h12" stroke="#9eb7f0" stroke-width="2" />
+        </svg>
+
+        <p class="art-caption mono">THE QUALITY LAB / ILLUSTRATIVE WORKFLOW</p>
+      </div>
+    </section>
+
+    <!-- ACHIEVEMENTS -->
+    <section class="stats reveal" aria-label="Career achievements">
+      <div class="stat">
+        <strong><span data-count="70">70</span><span>%</span></strong>
+        <p>Less regression time</p>
+      </div>
+      <div class="stat">
+        <strong><span data-count="90">90</span><span>%+</span></strong>
+        <p>Cloud integration coverage</p>
+      </div>
+      <div class="stat">
+        <strong><span data-count="100">100</span><span>%</span></strong>
+        <p>Manual backend regression eliminated</p>
+      </div>
+      <div class="stat">
+        <strong><span data-count="30">30</span><span>+</span></strong>
+        <p>Cross-device defects caught</p>
+      </div>
+      <div class="stat">
+        <strong><span>Zero</span></strong>
+        <p>Critical escapes in 5 sprint releases</p>
+      </div>
+      <div class="stat">
+        <strong><span data-count="15">15</span><span>+</span></strong>
+        <p>P1 streaming defects resolved</p>
+      </div>
+    </section>
+
+    <!-- SELECTED WORK -->
+    <section id="work" class="section" aria-labelledby="work-title">
+      <div class="section-heading reveal">
+        <div>
+          <span class="section-label mono">01 / SELECTED WORK</span>
+          <h2 id="work-title">Complex systems.<br />Clear quality outcomes.</h2>
+        </div>
+        <p class="section-note">
+          Selected project work at LTIMindtree — spanning cloud infrastructure,
+          streaming experiences, and e-commerce.
+        </p>
+      </div>
+
+      <div class="work-grid">
+        <article class="work-card reveal">
+          <div class="work-art">
+            <svg viewBox="0 0 360 205" role="img" aria-label="Cloud services connected to validated data nodes">
+              <rect width="360" height="205" fill="#eff4ff" />
+              <circle cx="180" cy="99" r="76" fill="#e4ecff" />
+              <g fill="none" stroke="#9fb7ec" stroke-width="2" stroke-dasharray="5 5">
+                <path d="M180 101v47H77" />
+                <path d="M180 101v47h103" />
+                <path d="M180 101v64" />
+              </g>
+              <path d="M147 104c-26 0-28-37-4-43 4-35 54-39 67-7 31-6 50 48 13 50Z" fill="white" stroke="#779bec"
+                stroke-width="2" />
+              <text x="183" y="87" text-anchor="middle" font-family="monospace" font-size="14" fill="#315bea">AWS</text>
+              <g fill="white" stroke="#c4d3ef">
+                <rect x="43" y="132" width="68" height="36" rx="8" />
+                <rect x="146" y="149" width="68" height="36" rx="8" />
+                <rect x="249" y="132" width="68" height="36" rx="8" />
+              </g>
+              <g font-family="monospace" font-size="10" fill="#46628f" text-anchor="middle">
+                <text x="77" y="154">SQS ✓</text>
+                <text x="180" y="171">S3 ✓</text>
+                <text x="283" y="154">λ ✓</text>
+              </g>
+              <circle cx="270" cy="58" r="15" fill="#d8f2e8" />
+              <path d="m263 58 5 5 9-10" fill="none" stroke="#178770" stroke-width="2" />
+            </svg>
+          </div>
+
+          <div class="work-content">
+            <span class="work-type mono">CLOUD / BACKEND AUTOMATION</span>
+            <h3>Cloud, under control.</h3>
+            <p>A scalable backend automation suite for an AWS-powered enterprise application.</p>
+
+            <div class="tags">
+              <span class="pill">Python</span>
+              <span class="pill">Pytest</span>
+              <span class="pill">AWS</span>
+              <span class="pill">Allure</span>
+            </div>
+
+            <div class="result">
+              <strong>90%+ coverage</strong>
+              <span>Of critical cloud integration paths</span>
+            </div>
+
+            <details>
+              <summary>Explore the engineering</summary>
+              <ul>
+                <li>Validated Step Functions workflows, SQS message queues, and S3 payload integrity.</li>
+                <li>Tested CodePipeline end-to-end on EC2, reducing deployment failure detection time by 60%.</li>
+                <li>Built REST API and XML validation suites, eliminating manual backend regression cycles.</li>
+                <li>Integrated Allure into CI, cutting post-release defect triage time by 40%.</li>
+                <li>Validated microservice communication inside cloud VPC environments.</li>
+              </ul>
+            </details>
+          </div>
+        </article>
+
+        <article class="work-card reveal">
+          <div class="work-art">
+            <svg viewBox="0 0 360 205" role="img"
+              aria-label="Streaming playback validated across television and mobile screens">
+              <rect width="360" height="205" fill="#eef7f4" />
+              <circle cx="180" cy="101" r="80" fill="#e1f0eb" />
+              <rect x="62" y="36" width="218" height="129" rx="10" fill="white" stroke="#92bdaf" stroke-width="2" />
+              <rect x="71" y="45" width="200" height="103" rx="5" fill="#d9ebe5" />
+              <path d="M71 127 129 82l46 31 44-49 52 44v40H71Z" fill="#bfdcd0" />
+              <circle cx="173" cy="95" r="23" fill="white" opacity=".95" />
+              <path d="m168 83 17 12-17 12Z" fill="#18826c" />
+              <path d="M157 165v13h32v-13m-45 15h58" fill="none" stroke="#83ab9d" stroke-width="3" />
+              <rect x="255" y="95" width="52" height="91" rx="9" fill="white" stroke="#92bdaf" stroke-width="2" />
+              <rect x="261" y="105" width="40" height="65" rx="4" fill="#d9ebe5" />
+              <path d="m276 126 13 9-13 9Z" fill="#18826c" />
+              <rect x="80" y="56" width="47" height="16" rx="5" fill="white" />
+              <text x="103" y="67" text-anchor="middle" font-family="monospace" font-size="7" fill="#18826c">PLAY
+                ✓</text>
+              <circle cx="297" cy="52" r="15" fill="#d0eade" />
+              <path d="m290 52 5 5 9-10" fill="none" stroke="#178770" stroke-width="2" />
+            </svg>
+          </div>
+
+          <div class="work-content">
+            <span class="work-type mono">MX PLAYER / OTT PLATFORM</span>
+            <h3>Every screen, tested.</h3>
+            <p>Playwright-TypeScript automation and cross-device QA for web, mobile, and Android TV experiences.</p>
+
+            <div class="tags">
+              <span class="pill">Playwright</span>
+              <span class="pill">TypeScript</span>
+              <span class="pill">Android TV</span>
+            </div>
+
+            <div class="result">
+              <strong>3 days → &lt;4 hours</strong>
+              <span>Regression execution time</span>
+            </div>
+
+            <details>
+              <summary>Explore the engineering</summary>
+              <ul>
+                <li>Architected a framework from scratch, achieving 85% regression coverage and 70% faster QA cycles.
+                </li>
+                <li>Converted 200+ manual cases into automated Playwright scripts.</li>
+                <li>Identified 30+ device-specific defects across web, mobile, and Android TV.</li>
+                <li>Resolved 15+ P1 streaming defects through API contract checks and Charles Proxy analysis.</li>
+                <li>Defined the mobile testing strategy across 10+ device configurations.</li>
+              </ul>
+            </details>
+          </div>
+        </article>
+
+        <article class="work-card reveal">
+          <div class="work-art">
+            <svg viewBox="0 0 360 205" role="img"
+              aria-label="E-commerce checkout interface with verified payment and order completion">
+              <rect width="360" height="205" fill="#f5f1fc" />
+              <circle cx="180" cy="102" r="80" fill="#ece5f8" />
+              <rect x="67" y="30" width="226" height="147" rx="12" fill="white" stroke="#cbb9e5" />
+              <path d="M67 56h226" stroke="#e8def5" />
+              <circle cx="82" cy="43" r="3" fill="#b9a2d8" />
+              <circle cx="93" cy="43" r="3" fill="#d0bfe6" />
+              <rect x="82" y="72" width="77" height="83" rx="7" fill="#f0e9f9" />
+              <path d="M104 101h35l-4 23h-26l-7-31h-7" fill="none" stroke="#9068bc" stroke-width="2.5"
+                stroke-linejoin="round" />
+              <circle cx="113" cy="132" r="3" fill="#9068bc" />
+              <circle cx="132" cy="132" r="3" fill="#9068bc" />
+              <rect x="174" y="77" width="89" height="5" rx="2.5" fill="#bda8d7" />
+              <rect x="174" y="92" width="62" height="4" rx="2" fill="#ded2ed" />
+              <rect x="174" y="108" width="89" height="4" rx="2" fill="#ded2ed" />
+              <rect x="174" y="129" width="99" height="25" rx="6" fill="#8a64b5" />
+              <text x="224" y="145" text-anchor="middle" font-family="monospace" font-size="8" fill="white">CHECKOUT
+                ✓</text>
+              <rect x="221" y="158" width="101" height="27" rx="8" fill="#e1f3eb" stroke="#c0e2d4" />
+              <text x="272" y="175" text-anchor="middle" font-family="monospace" font-size="8" fill="#147b60">PAYMENT
+                VERIFIED</text>
+            </svg>
+          </div>
+
+          <div class="work-content">
+            <span class="work-type mono">E-COMMERCE / QUALITY ASSURANCE</span>
+            <h3>Checkout with confidence.</h3>
+            <p>Disciplined end-to-end testing for checkout, payment, inventory, and core customer journeys.</p>
+
+            <div class="tags">
+              <span class="pill">Manual QA</span>
+              <span class="pill">JIRA</span>
+              <span class="pill">Agile</span>
+            </div>
+
+            <div class="result">
+              <strong>Zero critical escapes</strong>
+              <span>Across five consecutive sprint releases</span>
+            </div>
+
+            <details>
+              <summary>Explore the engineering</summary>
+              <ul>
+                <li>Authored 300+ test cases with 95%+ coverage of core user journeys.</li>
+                <li>Managed 150+ defects with detailed reproduction steps and root cause documentation.</li>
+                <li>Achieved an average defect closure SLA of two business days.</li>
+                <li>Maintained Confluence test artifacts for onboarding and knowledge transfer.</li>
+              </ul>
+            </details>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- AI WORKFLOW -->
+    <section id="ai" class="ai-section reveal" aria-labelledby="ai-title">
+      <div class="section-heading">
+        <div>
+          <span class="section-label mono">02 / HUMAN JUDGMENT. AI ACCELERATION.</span>
+          <h2 id="ai-title">A smarter testing workflow.</h2>
+        </div>
+        <p class="section-note">
+          AI is my force multiplier — not a replacement for test design judgment.
+          Less repetitive work. More engineering focus.
+        </p>
+      </div>
+
+      <div class="ai-grid">
+        <article class="ai-card">
+          <div class="tool-icon claude" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+              <path d="M12 2v20M2 12h20M5 5l14 14M5 19 19 5M8 3l8 18M3 8l18 8" />
+            </svg>
+          </div>
+          <h3>Claude</h3>
+          <p class="tool-subtitle mono">ANTHROPIC API + CLAUDE CODE</p>
+          <ul>
+            <li>Jira acceptance criteria → draft test cases and Playwright scripts.</li>
+            <li>Flaky-test hypotheses, schema models, and framework documentation.</li>
+            <li>Anthropic Python SDK integration for QA reporting and summaries.</li>
+          </ul>
+        </article>
+
+        <article class="ai-card">
+          <div class="tool-icon cursor-tool" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round">
+              <path d="m5 3 14 10-7 1-3 7Z" />
+              <path d="m12 14 5 7" />
+            </svg>
+          </div>
+          <h3>Cursor</h3>
+          <p class="tool-subtitle mono">REPO-AWARE DEVELOPMENT</p>
+          <ul>
+            <li>Build Playwright page objects and Pytest suites using existing repo patterns.</li>
+            <li>Refactor locators and fixtures across multiple files.</li>
+            <li>Replace brittle sleeps with state-based waits and polling assertions.</li>
+          </ul>
+        </article>
+
+        <article class="ai-card">
+          <div class="tool-icon chatgpt" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round">
+              <path d="M20 11a8 8 0 0 1-8 8H4l1.5-4A8 8 0 1 1 20 11Z" />
+              <path d="M8 9h8M8 13h5" />
+            </svg>
+          </div>
+          <h3>ChatGPT</h3>
+          <p class="tool-subtitle mono">EXPLORATION &amp; EDGE CASES</p>
+          <ul>
+            <li>Brainstorm OTT edge cases: ad timing, license expiry, and playback state.</li>
+            <li>Structure technical prep around HLS/DASH, VAST/VMAP, and DRM boundaries.</li>
+            <li>Quick Python and TypeScript guidance while building side projects.</li>
+          </ul>
+        </article>
+
+        <article class="ai-card">
+          <div class="tool-icon copilot" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+              <rect x="3" y="6" width="18" height="13" rx="5" />
+              <path d="M12 3v3M8 11v3m8-3v3m-7 3h6M1 11v4m22-4v4" />
+            </svg>
+          </div>
+          <h3>GitHub Copilot</h3>
+          <p class="tool-subtitle mono">INLINE CODING ASSISTANCE</p>
+          <ul>
+            <li>Autocomplete page objects, locators, and repetitive assertions.</li>
+            <li>Scaffold imports, test blocks, and fixtures inside VS Code.</li>
+            <li>Reduce context-switching for small, self-contained completions.</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="workflow mono" aria-label="AI-assisted test development process">
+        <span>Jira criteria</span><span aria-hidden="true">→</span>
+        <span>AI-assisted draft</span><span aria-hidden="true">→</span>
+        <span>My review &amp; refinement</span><span aria-hidden="true">→</span>
+        <span>Execute &amp; verify</span>
+      </div>
+
+      <p class="ai-footnote">
+        The principle: AI proposes. I review, validate, and own the final test logic.
+      </p>
+    </section>
+
+    <!-- TECH STACK -->
+    <section id="stack" class="section" aria-labelledby="stack-title">
+      <div class="section-heading reveal">
+        <div>
+          <span class="section-label mono">03 / THE TOOLKIT</span>
+          <h2 id="stack-title">Built on a practical stack.</h2>
+        </div>
+        <p class="section-note">
+          The tools I use to turn quality strategy into repeatable,
+          observable engineering.
+        </p>
+      </div>
+
+      <div class="stack-grid">
+        <div class="stack-card reveal">
+          <span class="mono">01 / AUTOMATION</span>
+          <h3>Frameworks</h3>
+          <p>Playwright · Pytest<br />Selenium WebDriver</p>
+        </div>
+        <div class="stack-card reveal">
+          <span class="mono">02 / LANGUAGES</span>
+          <h3>Code &amp; scripting</h3>
+          <p>TypeScript · Python<br />Java</p>
+        </div>
+        <div class="stack-card reveal">
+          <span class="mono">03 / API TESTING</span>
+          <h3>Contracts &amp; payloads</h3>
+          <p>Postman · REST Assured<br />Charles Proxy · XML / JSON</p>
+        </div>
+        <div class="stack-card reveal">
+          <span class="mono">04 / CLOUD</span>
+          <h3>AWS services</h3>
+          <p>Lambda · Step Functions · SQS<br />S3 · EC2 · CloudWatch</p>
+        </div>
+        <div class="stack-card reveal">
+          <span class="mono">05 / DELIVERY</span>
+          <h3>CI/CD &amp; DevOps</h3>
+          <p>Jenkins · GitHub Actions<br />CodePipeline · Docker · Git</p>
+        </div>
+        <div class="stack-card reveal">
+          <span class="mono">06 / VISIBILITY</span>
+          <h3>Reporting &amp; tracking</h3>
+          <p>Allure · JIRA<br />Confluence · TestRail</p>
+        </div>
+        <div class="stack-card reveal">
+          <span class="mono">07 / COVERAGE</span>
+          <h3>Testing disciplines</h3>
+          <p>
+            Functional · Regression · API<br />
+            Integration · Mobile · Backend<br />
+            Cross-device
+          </p>
+        </div>
+        <div class="stack-card reveal">
+          <span class="mono">08 / PROCESS</span>
+          <h3>Ways of working</h3>
+          <p>Agile / Scrum · BDD · TDD<br />AI-assisted engineering</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT AND EXPERIENCE -->
+    <section id="about" class="section" aria-labelledby="about-title">
+      <div class="about-grid">
+        <div class="reveal">
+          <span class="section-label mono">04 / BEHIND THE TESTS</span>
+          <h2 id="about-title">Curious by nature.<br />Systematic by design.</h2>
+
+          <p class="about-copy">
+            I’m a Kolkata-based QA Automation Engineer specializing in
+            scalable testing across <strong>web, API, mobile, and cloud systems</strong>.
+            My core stack brings together Playwright, Pytest, Selenium,
+            and AWS service validation.
+          </p>
+
+          <p class="about-copy">
+            I’m comfortable owning quality end-to-end: from designing the
+            test strategy and building frameworks to wiring reliable checks
+            into CI/CD.
+          </p>
+
+          <p class="about-copy">
+            Increasingly, I work at the intersection of <strong>QA and
+              AI-assisted engineering</strong> — accelerating authoring,
+            debugging, and Jira-to-automation workflows while keeping
+            engineering judgment firmly in the loop.
+          </p>
+        </div>
+
+        <div class="experience-box reveal">
+          <div class="experience-top">
+            <div>
+              <span class="section-label mono">PROFESSIONAL EXPERIENCE</span>
+              <h3>LTIMindtree</h3>
+            </div>
+            <div class="company-icon" aria-hidden="true">LT</div>
+          </div>
+
+          <p class="role">Quality Engineer</p>
+          <p class="experience-date mono">Jun 2020 — Present · Kolkata, India</p>
+
+          <div class="timeline">
+            <div class="timeline-item">
+              <strong>Cloud-based enterprise application</strong>
+              <p>AWS integrations, Pytest automation, pipeline test gates, and Allure observability.</p>
+            </div>
+            <div class="timeline-item">
+              <strong>MX Player / OTT streaming platform</strong>
+              <p>Playwright framework architecture, API diagnostics, and cross-device quality.</p>
+            </div>
+            <div class="timeline-item">
+              <strong>E-commerce platform</strong>
+              <p>Core journey coverage, structured regression, and disciplined defect management.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="credentials reveal">
+        <div>
+          <h3 class="mono">Certifications &amp; training</h3>
+          <div class="cert-list">
+            <div class="cert">ISTQB CTFL — Certified Tester</div>
+            <div class="cert">AWS Cloud Practitioner — Official Training Path</div>
+            <div class="cert">Selenium WebDriver with Java — Certified Training</div>
+            <div class="cert">Playwright with TypeScript — Certified Training</div>
+          </div>
+        </div>
+
+        <div class="education">
+          <h3 class="mono">Education</h3>
+          <strong>Bachelor of Technology · B.Tech</strong>
+          <p>Computer Science / Information Technology</p>
+          <p class="mono">2016 — 2020 · India</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIDE PROJECTS -->
+    <section class="section" aria-labelledby="side-title">
+      <div class="section-heading reveal">
+        <div>
+          <span class="section-label mono">05 / BEYOND THE TEST SUITE</span>
+          <h2 id="side-title">Building to understand better.</h2>
+        </div>
+        <p class="section-note">
+          Side projects exploring application architecture, validation,
+          and containerized delivery.
+        </p>
+      </div>
+
+      <div class="side-grid">
+        <article class="side-card reveal">
+          <div class="side-icon mono" aria-hidden="true">[ / ]</div>
+          <h3>3-Tier Task Manager</h3>
+          <p>
+            A production-style architecture exploring service separation,
+            data persistence, reverse proxying, and Docker-based deployment.
+          </p>
+          <div class="tags">
+            <span class="pill">Node.js</span>
+            <span class="pill">Express</span>
+            <span class="pill">MongoDB</span>
+            <span class="pill">Nginx</span>
+            <span class="pill">Docker</span>
+          </div>
+        </article>
+
+        <article class="side-card reveal">
+          <div class="side-icon mono" aria-hidden="true">{ : }</div>
+          <h3>Employee Management System</h3>
+          <p>
+            A three-tier application with Joi validation, Winston logging,
+            Swagger/OpenAPI documentation, and atomic auto-incrementing IDs.
+          </p>
+          <div class="tags">
+            <span class="pill">Node.js</span>
+            <span class="pill">MongoDB</span>
+            <span class="pill">Joi</span>
+            <span class="pill">OpenAPI</span>
+            <span class="pill">Docker</span>
+          </div>
+        </article>
+      </div>
+
+      <details class="approach reveal">
+        <summary>How I think about testing an OTT experience ↗</summary>
+        <div class="approach-grid">
+          <div>
+            <h4>01 / Follow the user journey</h4>
+            <p>
+              Map playback, navigation, device behavior, and failure recovery.
+              Prioritize the flows where a defect would most directly disrupt viewing.
+            </p>
+          </div>
+          <div>
+            <h4>02 / Look beneath the UI</h4>
+            <p>
+              Pair interface checks with API contracts and proxy diagnostics.
+              Explore manifest behavior, ad timing, and DRM boundaries as deeper
+              test-design topics.
+            </p>
+          </div>
+          <div>
+            <h4>03 / Make failures actionable</h4>
+            <p>
+              Prefer state-based synchronization to fixed sleeps. Use clear
+              assertions, reproducible defect reports, and execution evidence
+              to accelerate diagnosis.
+            </p>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact reveal" aria-labelledby="contact-title">
+      <div>
+        <span class="section-label mono">06 / LET’S CONNECT</span>
+        <h2 id="contact-title">Your next release.<br />A little more confident.</h2>
+        <p>Have an automation challenge or an SDET opportunity? Let’s talk.</p>
+      </div>
+
+      <div class="contact-right">
+        <a class="email" href="mailto:nirnay.seal@email.com">
+          nirnay.seal@email.com ↗
+        </a>
+
+        <div class="socials">
+          <a href="https://www.linkedin.com/in/nirnaySeal" target="_blank" rel="noopener noreferrer"
+            aria-label="LinkedIn, opens in a new tab">LinkedIn ↗</a>
+
+          <a href="https://github.com/nirnaySeal" target="_blank" rel="noopener noreferrer"
+            aria-label="GitHub, opens in a new tab">GitHub ↗</a>
+
+          <button class="copy-button" id="copy-email" type="button" hidden>Copy email</button>
+        </div>
+
+        <div class="copy-status" id="copy-status" role="status"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    <span>© <span id="year">2026</span> Nirnay Seal</span>
+    <span class="mono">Built with intention. Tested with curiosity.</span>
+    <a href="#top">Back to top ↑</a>
+  </footer>
+
+  <script>
+    // LIGHT / DARK MODE
+    (() => {
+      const root = document.documentElement;
+      const toggle = document.getElementById("theme-toggle");
+      const label = document.getElementById("theme-toggle-label");
+      const themeColor = document.querySelector('meta[name="theme-color"]');
+      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
+      const storageKey = "portfolio-theme";
+
+      let explicitTheme = null;
+
+      try {
+        const stored = localStorage.getItem(storageKey);
+
+        if (stored === "light" || stored === "dark") {
+          explicitTheme = stored;
+        }
+      } catch { }
+
+      function preferredTheme() {
+        return explicitTheme || (systemTheme.matches ? "dark" : "light");
+      }
+
+      function applyTheme(theme) {
+        const isDark = theme === "dark";
+        const actionLabel = `Switch to ${isDark ? "light" : "dark"} mode`;
+
+        root.dataset.theme = theme;
+        label.textContent = isDark ? "Light" : "Dark";
+        toggle.setAttribute("aria-label", actionLabel);
+        toggle.title = actionLabel;
+
+        themeColor?.setAttribute(
+          "content",
+          isDark ? "#0d1422" : "#f8f9fc"
+        );
+      }
+
+      toggle.addEventListener("click", () => {
+        explicitTheme =
+          root.dataset.theme === "dark" ? "light" : "dark";
+
+        applyTheme(explicitTheme);
+
+        try {
+          localStorage.setItem(storageKey, explicitTheme);
+        } catch {
+          // Keep the theme active for this visit when storage is unavailable.
+        }
+      });
+
+      function handleSystemChange() {
+        if (!explicitTheme) {
+          applyTheme(preferredTheme());
+        }
+      }
+
+      if (systemTheme.addEventListener) {
+        systemTheme.addEventListener("change", handleSystemChange);
+      } else {
+        systemTheme.addListener(handleSystemChange);
+      }
+
+      // Synchronize theme changes between tabs.
+      window.addEventListener("storage", (event) => {
+        try {
+          if (event.storageArea !== window.localStorage) return;
+        } catch {
+          return;
+        }
+
+        if (event.key !== storageKey && event.key !== null) return;
+
+        explicitTheme =
+          event.newValue === "light" || event.newValue === "dark"
+            ? event.newValue
+            : null;
+
+        applyTheme(preferredTheme());
+      });
+
+      applyTheme(preferredTheme());
+      toggle.hidden = false;
+    })();
+
+    // FOOTER YEAR
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // MOBILE NAVIGATION
+    const menuButton = document.getElementById("menu-toggle");
+    const navLinks = document.getElementById("nav-links");
+
+    function closeMenu() {
+      navLinks.classList.remove("open");
+      menuButton.setAttribute("aria-expanded", "false");
+      menuButton.textContent = "Menu +";
+    }
+
+    menuButton.addEventListener("click", () => {
+      const open = navLinks.classList.toggle("open");
+      menuButton.setAttribute("aria-expanded", String(open));
+      menuButton.textContent = open ? "Close −" : "Menu +";
+    });
+
+    navLinks.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeMenu);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (
+        event.key === "Escape" &&
+        navLinks.classList.contains("open")
+      ) {
+        closeMenu();
+        menuButton.focus();
+      }
+    });
+
+    // Navigation remains visible when JavaScript is disabled.
+    document.documentElement.classList.add("js");
+
+    // REVEAL ANIMATIONS AND COUNTERS
+    const motionPreference = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    );
+
+    const revealElements = document.querySelectorAll(".reveal");
+    const counterFrames = new Map();
+
+    let revealObserver;
+    let counterObserver;
+
+    function restoreStatAccessibility(stat) {
+      stat.removeAttribute("role");
+      stat.removeAttribute("aria-label");
+      stat.querySelector("strong").removeAttribute("aria-hidden");
+      stat.querySelector("p").removeAttribute("aria-hidden");
+    }
+
+    if (
+      "IntersectionObserver" in window &&
+      !motionPreference.matches
+    ) {
+      revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove("pending");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.06 });
+
+      revealElements.forEach((element) => {
+        if (element.getBoundingClientRect().top >= window.innerHeight) {
+          element.classList.add("pending");
+          revealObserver.observe(element);
+        }
+      });
+
+      // Ensure keyboard navigation never lands on invisible content.
+      document.addEventListener("focusin", (event) => {
+        let element = event.target.closest(".reveal.pending");
+
+        while (element) {
+          element.classList.remove("pending");
+          revealObserver?.unobserve(element);
+          element = element.parentElement?.closest(".reveal.pending");
+        }
+      });
+
+      counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          const element = entry.target;
+          const finalValue = Number(element.dataset.count);
+          const start = performance.now();
+          const duration = 1150;
+          const stat = element.closest(".stat");
+          const strong = stat.querySelector("strong");
+          const description = stat.querySelector("p");
+
+          // Keep the accessible value stable while the visual value animates.
+          stat.setAttribute("role", "group");
+          stat.setAttribute(
+            "aria-label",
+            `${strong.textContent.trim()} ${description.textContent.trim()}`
+          );
+
+          strong.setAttribute("aria-hidden", "true");
+          description.setAttribute("aria-hidden", "true");
+
+          function update(now) {
+            const progress = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+
+            element.textContent = Math.round(finalValue * eased);
+
+            if (progress < 1 && !motionPreference.matches) {
+              counterFrames.set(element, requestAnimationFrame(update));
+            } else {
+              element.textContent = finalValue;
+              counterFrames.delete(element);
+              restoreStatAccessibility(stat);
+            }
+          }
+
+          counterFrames.set(element, requestAnimationFrame(update));
+          counterObserver.unobserve(element);
+        });
+      }, { threshold: 0.5 });
+
+      document.querySelectorAll("[data-count]").forEach((element) => {
+        counterObserver.observe(element);
+      });
+    }
+
+    function handleMotionChange(event) {
+      if (!event.matches) return;
+
+      revealElements.forEach((element) => {
+        element.classList.remove("pending");
+      });
+
+      revealObserver?.disconnect();
+      counterObserver?.disconnect();
+
+      counterFrames.forEach((frame, element) => {
+        cancelAnimationFrame(frame);
+        element.textContent = element.dataset.count;
+        restoreStatAccessibility(element.closest(".stat"));
+      });
+
+      counterFrames.clear();
+    }
+
+    if (motionPreference.addEventListener) {
+      motionPreference.addEventListener("change", handleMotionChange);
+    } else {
+      motionPreference.addListener(handleMotionChange);
+    }
+
+    // COPY EMAIL
+    const copyButton = document.getElementById("copy-email");
+    const copyStatus = document.getElementById("copy-status");
+
+    let statusTimer;
+
+    if (navigator.clipboard && window.isSecureContext) {
+      copyButton.hidden = false;
+
+      copyButton.addEventListener("click", async () => {
+        clearTimeout(statusTimer);
+
+        try {
+          const email = document.querySelector(".email")
+            .getAttribute("href")
+            .replace(/^mailto:/, "");
+
+          await navigator.clipboard.writeText(email);
+          copyStatus.textContent = "Email copied!";
+        } catch {
+          copyStatus.textContent =
+            "Couldn’t copy — please select the email above.";
+        }
+
+        statusTimer = setTimeout(() => {
+          copyStatus.textContent = "";
+        }, 4000);
+      });
+    }
+  </script>
+</body>
+
+</html>
