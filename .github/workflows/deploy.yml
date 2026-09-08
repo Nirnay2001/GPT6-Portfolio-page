@@ -16,8 +16,12 @@ jobs:
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/github_actions
+          printf '%s\n' "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/github_actions
           chmod 600 ~/.ssh/github_actions
+
+      - name: Test SSH key
+        run: |
+          ssh-keygen -y -f ~/.ssh/github_actions > /dev/null
 
       - name: Add EC2 to known hosts
         run: |
