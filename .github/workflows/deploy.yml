@@ -35,8 +35,15 @@ jobs:
             -e "ssh -i ~/.ssh/github_actions" \
             ./ ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/tmp/website/
 
-      - name: Deploy to Nginx
-        run: |
-          ssh -i ~/.ssh/github_actions \
-            ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} \
-            "sudo rsync -av --delete /tmp/website/ /var/www/html/"
+      - name: Deploy with docker
+        run : |
+          ssh -i ~/.ssh/github_actions ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} << 'EOF'
+            git clone https://github.com/Nirnay2001/GPT6-Portfolio-page.git
+            cd GPT6-Portfolio-page
+            docker build -t gpt6-portfolio .
+            docker stop gpt6-portfolio || true
+            docker rm gpt6-portfolio || true
+            docker run -d -p 80:80 --name portfolio -p 80:80 gpt6-portfolio
+          EOF
+         
+        
