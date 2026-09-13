@@ -1,5 +1,5 @@
 services:
   web:
-    image: webapp01:latest
+    build: .
     ports:
       - "80:80"
