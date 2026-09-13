@@ -36,14 +36,13 @@ jobs:
             ./ ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/tmp/website/
 
       - name: Deploy with docker
-        run : |
+        run: |
           ssh -i ~/.ssh/github_actions ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} << 'EOF'
-            git clone https://github.com/Nirnay2001/GPT6-Portfolio-page.git
-            cd GPT6-Portfolio-page
+            cd /tmp/website
             sudo docker build -t gpt6-portfolio .
-            sudo docker stop gpt6-portfolio || true
-            sudo docker rm gpt6-portfolio || true
-            sudo docker run -d -p 80:80 --name portfolio -p 80:80 gpt6-portfolio:latest
+            sudo docker stop portfolio || true
+            sudo docker rm portfolio || true
+            sudo docker run -d -p 80:80 --name portfolio gpt6-portfolio:latest
           EOF
          
         
