@@ -39,10 +39,10 @@ jobs:
         run: |
           ssh -i ~/.ssh/github_actions ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} << 'EOF'
             cd /tmp/website
-            sudo docker build -t gpt6-portfolio .
-            sudo docker stop portfolio || true
-            sudo docker rm portfolio || true
-            sudo docker run -d --name portfolio -p 80:80 gpt6-portfolio:latest
+            cd GPT6-Portfolio-page
+            sudo docker compose down || true
+            sudo docker compose build
+            sudo docker compose up -d
           EOF
          
         
