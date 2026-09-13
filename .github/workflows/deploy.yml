@@ -42,7 +42,7 @@ jobs:
             sudo docker build -t gpt6-portfolio .
             sudo docker stop portfolio || true
             sudo docker rm portfolio || true
-            sudo docker run -d -p 80:80 --name portfolio gpt6-portfolio:latest
+            sudo docker run -d --name portfolio -p 80:80 gpt6-portfolio:latest
           EOF
          
         
