@@ -1,5 +1,5 @@
 services:
   web:
-    build: .
+    image: nirnay2001/gpt6-portfolio-page:latest
     ports:
       - "80:80"
