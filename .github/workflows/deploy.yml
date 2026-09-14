@@ -41,8 +41,7 @@ jobs:
             cd /tmp/website
             cd GPT6-Portfolio-page
             sudo docker compose down || true
-            sudo docker compose build
-            sudo docker compose up -d
+            sudo docker compose up
           EOF
          
         
