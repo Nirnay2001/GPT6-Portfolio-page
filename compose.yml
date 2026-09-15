@@ -5,3 +5,6 @@ services:
       - mydata:/mydata
     ports:
       - "80:80"
+
+volumes:
+  mydata:
