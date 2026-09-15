@@ -2,6 +2,6 @@ services:
   web:
     image: nirnay2001/gpt6-portfolio-page:latest
     volumes:
-      - mydata: /mydata
+      - mydata:/mydata
     ports:
       - "80:80"
