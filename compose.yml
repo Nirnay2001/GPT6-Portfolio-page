@@ -5,7 +5,13 @@ services:
       - mydata:/mydata
     ports:
       - "80:80"
+    networks:
+      - app-net1
 
 volumes:
   mydata:
     name: mydata
+
+networks:
+  app-net1:
+    driver: bridge
