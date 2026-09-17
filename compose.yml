@@ -14,4 +14,5 @@ volumes:
 
 networks:
   app-net1:
+    name: app-net1
     driver: bridge
