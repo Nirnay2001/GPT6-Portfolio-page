@@ -2,6 +2,7 @@ services:
   web:
     image: nirnay2001/gpt6-portfolio-page:latest
     container_name: portfolio-web
+    memory: 245m
     volumes:
       - mydata:/mydata
     ports:
