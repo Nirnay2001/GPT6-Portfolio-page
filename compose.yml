@@ -1,6 +1,7 @@
 services:
   web:
     image: nirnay2001/gpt6-portfolio-page:latest
+    container_name: portfolio-web
     volumes:
       - mydata:/mydata
     ports:
@@ -17,6 +18,7 @@ services:
       timeout: 30s
       retries: 5
       start_period: 30s
+    restart: unless-stopped
 
 volumes:
   mydata:
