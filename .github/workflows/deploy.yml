@@ -1,48 +1,21 @@
-name: Deploy Website
+name: Test EC2 SSH Connection
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
-  deploy:
+  test-ssh:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup SSH
-        run: |
-          mkdir -p ~/.ssh
-          printf '%s\n' "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/github_actions
-          chmod 600 ~/.ssh/github_actions
-
-      - name: Test SSH key
-        run: |
-          ssh-keygen -y -f ~/.ssh/github_actions > /dev/null
-
-      - name: Add EC2 to known hosts
-        run: |
-          ssh-keyscan -H "${{ secrets.EC2_HOST }}" >> ~/.ssh/known_hosts
-
-      - name: Copy website to EC2
-        run: |
-          rsync -avz --delete \
-            --exclude ".git/" \
-            --exclude ".github/" \
-            -e "ssh -i ~/.ssh/github_actions" \
-            ./ ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/tmp/website/
-
-      - name: Deploy with docker
-        run: |
-          ssh -i ~/.ssh/github_actions ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} << 'EOF'
-            cd /tmp/website
-            cd GPT6-Portfolio-page
-            sudo docker compose down || true
-            sudo docker compose pull
-            sudo docker compose up -d
-          EOF
-         
-        
+      - name: Connect to EC2
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            echo "Successfully connected to EC2"
+            whoami
+            hostname
+            uptime
