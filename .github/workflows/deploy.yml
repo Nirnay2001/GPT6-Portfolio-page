@@ -80,6 +80,7 @@ jobs:
             set -e
 
             cd /home/ubuntu/GPT6-Portfolio
+            echo "Updating image in deployment manifest"
 
             kubectl cluster-info
 
