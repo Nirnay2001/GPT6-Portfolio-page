@@ -69,9 +69,11 @@ jobs:
           script: |
             set -e
 
+            cd GPT 6 Protfolio
+
             kubectl cluster-info
-            kubectl apply -f portfolio-deployment.yaml
-            kubectl apply -f portfolio-service.yaml
+            kubectl apply -f Portfolio-deployment.yml
+            kubectl apply -f Portfolio-service.yml
             kubectl rollout status deployment/portfolio --timeout=180s
 
 
