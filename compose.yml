@@ -1,6 +1,6 @@
 services:
   web:
-    image: nirnay2001/gpt6-portfolio-page:latest
+    image: ${APP_IMAGE:-nirnay2001/gpt6-portfolio-page:latest}
     container_name: portfolio-web
     mem_limit: 245m
     cpus: 0.5
