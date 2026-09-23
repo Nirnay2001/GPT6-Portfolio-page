@@ -56,7 +56,17 @@ jobs:
           docker push \
             "$REGISTRY/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}"
 
-      # 6. Deploy to Kubernetes on EC2
+      # 6. Copy Kubernetes manifests to EC2
+      - name: Copy Kubernetes Manifests
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "Portfolio-deployment.yml,Portfolio-service.yml"
+          target: "/home/ubuntu/GPT6-Portfolio"
+
+      # 7. Deploy to Kubernetes on EC2
       - name: Deploy to Kubernetes
         uses: appleboy/ssh-action@v1.2.2
         env:
@@ -65,19 +75,18 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          source: "Portfolio-deployment.yml,Portfolio-service.yml"
-          target: "/home/ubuntu/GPT6-Portfolio"
           envs: IMAGE
           script: |
             set -e
 
-            
+            cd /home/ubuntu/GPT6-Portfolio
 
             kubectl cluster-info
+
             kubectl apply -f Portfolio-deployment.yml
             kubectl apply -f Portfolio-service.yml
-            kubectl rollout status deployment/portfolio --timeout=180s
 
-
+            kubectl rollout status deployment/portfolio \
+              --timeout=180s
 
             echo "Deployment successful"
