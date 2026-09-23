@@ -69,7 +69,7 @@ jobs:
           script: |
             set -e
 
-            cd GPT 6 Protfolio
+            
 
             kubectl cluster-info
             kubectl apply -f Portfolio-deployment.yml
