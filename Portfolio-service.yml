@@ -4,12 +4,12 @@ metadata:
   name: portfolio-service
   labels:
     app: portfolio
-  spec:
-    type: nodePort
-    selector:
-      app: portfolio 
-    ports:
-      - protocol: TCP
-        port: 80
-        targetPort: 80
-        nodePort: 30206
+spec:
+  type: NodePort
+  selector:
+    app: portfolio
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30206
