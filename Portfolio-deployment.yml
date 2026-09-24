@@ -15,9 +15,11 @@ spec:
       labels:
         app: portfolio
     spec:
+      imagePullSecrets:
+        - name: ecr-secret      
       containers:
         - name: portfolio-container
-          image: 474717635696.dkr.ecr.us-east-1.amazonaws.com/portfolio/app01:latest
+          image: 474717635696.dkr.ecr.us-east-1.amazonaws.com/portfolio/app01:2e1811cb15b25c0c48d57b186cbb7c59350fd6f3
           ports:
             - containerPort: 80
           resources:
