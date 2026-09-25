@@ -86,12 +86,7 @@ jobs:
 
             kubectl cluster-info
 
-            envsubst < Portfolio-deployment.yml | kubectl apply -f -
-
-
-            
+            envsubst < Portfolio-deployment.yml | kubectl apply -f -            
             kubectl apply -f Portfolio-service.yml
-
-            
 
             echo "Deployment successful"
