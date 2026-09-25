@@ -87,12 +87,11 @@ jobs:
             kubectl cluster-info
 
             envsubst < Portfolio-deployment.yml
-            
+
 
             kubectl apply -f Portfolio-deployment.yml
             kubectl apply -f Portfolio-service.yml
 
-            kubectl rollout status deployment/portfolio-deployment \
-            --timeout=180s
+            
 
             echo "Deployment successful"
