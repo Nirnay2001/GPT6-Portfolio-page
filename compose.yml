@@ -2,7 +2,7 @@ services:
   web:
     image: ${APP_IMAGE:-nirnay2001/gpt6-portfolio-page:latest}
     container_name: portfolio-web
-    mem_limit: 244m
+    mem_limit: 245m
     cpus: 0.5
     volumes:
       - mydata:/mydata
