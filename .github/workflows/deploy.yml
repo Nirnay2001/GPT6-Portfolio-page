@@ -65,6 +65,19 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           source: "Portfolio-deployment.yml,Portfolio-service.yml"
           target: "/home/ubuntu/GPT6-Portfolio"
+      
+      #8. Set up kubectl secret on EC2
+      - name: Set up kubectl secret on EC2
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            set -e
+            echo "Setting up kubectl secret on EC2"
+            kubectl delete secret ecr-secret --ignore-not-found
+            kubectl create secret docker-registry ecr-secret --docker-server=474717635696.dkr.ecr.us-east-1.amazonaws.com   --docker-username=AWS   --docker-password="$(aws ecr get-login-password --region us-east-1)"
 
       # 7. Deploy to Kubernetes on EC2
       - name: Deploy to Kubernetes
